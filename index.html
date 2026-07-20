@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Danny Morse's CS 499 Computer Science ePortfolio featuring software engineering, algorithms, data structures, and database development."
+    >
+
+    <title>Danny Morse | CS 499 ePortfolio</title>
+
+    <style>
+        :root {
+            --background: #071018;
+            --background-light: #0c1822;
+            --panel: #10212c;
+            --panel-light: #152b38;
+            --border: #294554;
+            --primary: #7dd3c7;
+            --secondary: #e3b86b;
+            --text: #edf5f4;
+            --muted: #a6b8bd;
+            --dark-text: #071018;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            color: var(--text);
+            background-color: var(--background);
+            font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+            line-height: 1.7;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+
+            background-image:
+                linear-gradient(
+                    rgba(125, 211, 199, 0.035) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(125, 211, 199, 0.035) 1px,
+                    transparent 1px
+                );
+
+            background-size: 42px 42px;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+
+            background:
+                radial-gradient(
+                    circle at 15% 10%,
+                    rgba(125, 211, 199, 0.10),
+                    transparent 32%
+                ),
+                radial-gradient(
+                    circle at 85% 35%,
+                    rgba(227, 184, 107, 0.08),
+                    transparent 30%
+                );
+
+            pointer-events: none;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+
+            padding: 15px 6%;
+            background-color: rgba(7, 16, 24, 0.94);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(12px);
+        }
+
+        .nav-brand {
+            color: var(--primary);
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 22px;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .hero {
+            min-height: 680px;
+
+            display: flex;
+            align-items: center;
+
+            padding: 90px 7%;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero-layout {
+            width: 100%;
+            max-width: 1250px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: 1.4fr 0.8fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .system-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+
+            margin-bottom: 18px;
+            color: var(--primary);
+
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .system-label::before {
+            content: "";
+            width: 28px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+
+        .hero h1 {
+            max-width: 830px;
+            margin: 0;
+
+            font-size: clamp(48px, 7vw, 86px);
+            line-height: 0.98;
+            letter-spacing: -3px;
+        }
+
+        .hero h1 span {
+            display: block;
+            color: var(--primary);
+        }
+
+        .hero-summary {
+            max-width: 790px;
+            margin: 28px 0 0;
+            color: var(--muted);
+            font-size: 19px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 13px;
+            margin-top: 30px;
+        }
+
+        .primary-button,
+        .secondary-button {
+            display: inline-block;
+            padding: 12px 18px;
+
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .primary-button {
+            color: var(--dark-text);
+            background-color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .primary-button:hover {
+            background-color: #9be2d8;
+        }
+
+        .secondary-button {
+            color: var(--text);
+            background-color: transparent;
+            border: 1px solid var(--border);
+        }
+
+        .secondary-button:hover {
+            border-color: var(--primary);
+        }
+
+        .profile-console {
+            padding: 26px;
+            background-color: rgba(16, 33, 44, 0.92);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 14px 14px 0 rgba(0, 0, 0, 0.22);
+        }
+
+        .console-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding-bottom: 14px;
+            margin-bottom: 18px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .console-heading strong {
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        .console-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status-light {
+            width: 9px;
+            height: 9px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 12px var(--primary);
+        }
+
+        .console-row {
+            display: grid;
+            grid-template-columns: 115px 1fr;
+            gap: 15px;
+            padding: 10px 0;
+            border-bottom: 1px dashed rgba(166, 184, 189, 0.18);
+        }
+
+        .console-row:last-child {
+            border-bottom: 0;
+        }
+
+        .console-key {
+            color: var(--secondary);
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .console-value {
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        main {
+            width: 88%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        section {
+            padding: 90px 0;
+            scroll-margin-top: 80px;
+        }
+
+        .section-header {
+            display: grid;
+            grid-template-columns: 160px 1fr;
+            gap: 30px;
+            margin-bottom: 42px;
+        }
+
+        .section-number {
+            color: var(--secondary);
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .section-title h2 {
+            margin: 0 0 10px;
+            font-size: clamp(34px, 5vw, 54px);
+            line-height: 1.05;
+        }
+
+        .section-title p {
+            max-width: 770px;
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .about-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 30px;
+        }
+
+        .content-panel {
+            padding: 32px;
+            background-color: rgba(16, 33, 44, 0.90);
+            border: 1px solid var(--border);
+            border-radius: 7px;
+        }
+
+        .content-panel p:first-child {
+            margin-top: 0;
+        }
+
+        .content-panel p:last-child {
+            margin-bottom: 0;
+        }
+
+        .approach-list {
+            display: grid;
+            gap: 13px;
+        }
+
+        .approach-item {
+            padding: 18px;
+            background-color: var(--background-light);
+            border-left: 3px solid var(--primary);
+        }
+
+        .approach-item strong {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--primary);
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        .approach-item span {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .review-layout {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 30px;
+        }
+
+        .review-summary {
+            padding: 30px;
+            background-color: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 7px;
+        }
+
+        .review-summary h3 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 22px;
+        }
+
+        .review-summary p {
+            color: var(--muted);
+        }
+
+        .review-matrix {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .review-cell {
+            min-height: 145px;
+            padding: 20px;
+            background-color: var(--panel-light);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+        }
+
+        .review-cell span {
+            display: block;
+            margin-bottom: 9px;
+            color: var(--secondary);
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .review-cell strong {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text);
+        }
+
+        .review-cell p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .artifact-list {
+            display: grid;
+            gap: 25px;
+        }
+
+        .artifact {
+            display: grid;
+            grid-template-columns: 130px 1fr 210px;
+            gap: 28px;
+            align-items: start;
+
+            padding: 30px;
+            background-color: rgba(16, 33, 44, 0.92);
+            border: 1px solid var(--border);
+            border-radius: 7px;
+
+            transition:
+                transform 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .artifact:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+        }
+
+        .artifact-code {
+            color: var(--primary);
+            font-family: Consolas, "Courier New", monospace;
+        }
+
+        .artifact-code strong {
+            display: block;
+            font-size: 25px;
+        }
+
+        .artifact-code span {
+            color: var(--muted);
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        .artifact-content h3 {
+            margin: 0 0 4px;
+            font-size: 27px;
+        }
+
+        .artifact-category {
+            margin: 0 0 16px;
+            color: var(--secondary);
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .artifact-content p {
+            margin: 0 0 13px;
+            color: var(--muted);
+        }
+
+        .artifact-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .artifact-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .status-tag {
+            padding: 8px 11px;
+            color: var(--primary);
+            background-color: rgba(125, 211, 199, 0.09);
+            border: 1px solid rgba(125, 211, 199, 0.35);
+            border-radius: 4px;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .disabled-link {
+            padding: 9px 11px;
+            color: #7d8d91;
+            background-color: #15222a;
+            border: 1px solid #263943;
+            border-radius: 4px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .skills-strip {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .skill {
+            padding: 7px 11px;
+            color: var(--muted);
+            background-color: var(--background-light);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 12px;
+        }
+
+        .assessment-panel {
+            position: relative;
+            overflow: hidden;
+            padding: 42px;
+
+            background:
+                linear-gradient(
+                    115deg,
+                    rgba(16, 33, 44, 0.98),
+                    rgba(21, 43, 56, 0.94)
+                );
+
+            border: 1px solid var(--border);
+            border-radius: 7px;
+        }
+
+        .assessment-panel::after {
+            content: "CS";
+            position: absolute;
+            right: 25px;
+            bottom: -50px;
+
+            color: rgba(125, 211, 199, 0.035);
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 210px;
+            font-weight: bold;
+        }
+
+        .assessment-panel h3 {
+            position: relative;
+            z-index: 1;
+            margin-top: 0;
+            font-size: 28px;
+        }
+
+        .assessment-panel p {
+            position: relative;
+            z-index: 1;
+            max-width: 830px;
+            color: var(--muted);
+        }
+
+        footer {
+            padding: 34px 6%;
+            color: var(--muted);
+            background-color: #050b10;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: auto;
+
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 12px;
+        }
+
+        @media (max-width: 950px) {
+            .hero-layout,
+            .about-layout,
+            .review-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .artifact {
+                grid-template-columns: 100px 1fr;
+            }
+
+            .artifact-controls {
+                grid-column: 2;
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .artifact-controls > * {
+                flex: 1;
+                min-width: 160px;
+            }
+        }
+
+        @media (max-width: 680px) {
+            nav {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .nav-links {
+                justify-content: flex-start;
+                gap: 13px;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 70px 7%;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .section-header {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .review-matrix {
+                grid-template-columns: 1fr;
+            }
+
+            .artifact {
+                grid-template-columns: 1fr;
+            }
+
+            .artifact-controls {
+                grid-column: auto;
+                flex-direction: column;
+            }
+
+            .console-row {
+                grid-template-columns: 1fr;
+                gap: 3px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a class="nav-brand" href="#top">
+            DM // CS499
+        </a>
+
+        <div class="nav-links">
+            <a href="#about">Profile</a>
+            <a href="#review">Code Review</a>
+            <a href="#artifacts">Artifacts</a>
+            <a href="#assessment">Assessment</a>
+        </div>
+    </nav>
+
+    <header class="hero" id="top">
+
+        <div class="hero-layout">
+
+            <div>
+
+                <p class="system-label">
+                    Computer Science Capstone
+                </p>
+
+                <h1>
+                    Designing software
+                    <span>for real conditions.</span>
+                </h1>
+
+                <p class="hero-summary">
+                    My work in computer science is shaped by an environment
+                    where software must communicate across systems, respond to
+                    user requirements, and remain dependable when conditions
+                    change. This ePortfolio documents how I apply that mindset
+                    to application development, algorithms, databases, security,
+                    and technical decision-making.
+                </p>
+
+                <div class="hero-actions">
+
+                    <a class="primary-button" href="#artifacts">
+                        Explore the Artifacts
+                    </a>
+
+                    <a class="secondary-button" href="#about">
+                        View My Approach
+                    </a>
+
+                </div>
+
+            </div>
+
+            <aside class="profile-console">
+
+                <div class="console-heading">
+
+                    <strong>PROFILE_STATUS</strong>
+
+                    <span class="console-status">
+                        <span class="status-light"></span>
+                        ACTIVE
+                    </span>
+
+                </div>
+
+                <div class="console-row">
+                    <span class="console-key">Name</span>
+                    <span class="console-value">Danny Morse</span>
+                </div>
+
+                <div class="console-row">
+                    <span class="console-key">Field</span>
+                    <span class="console-value">Computer Science</span>
+                </div>
+
+                <div class="console-row">
+                    <span class="console-key">Professional Lens</span>
+                    <span class="console-value">
+                        Simulation and systems integration
+                    </span>
+                </div>
+
+                <div class="console-row">
+                    <span class="console-key">Primary Focus</span>
+                    <span class="console-value">
+                        Reliable, maintainable technical solutions
+                    </span>
+                </div>
+
+                <div class="console-row">
+                    <span class="console-key">Portfolio Stage</span>
+                    <span class="console-value">
+                        Artifact enhancement and analysis
+                    </span>
+                </div>
+
+            </aside>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section id="about">
+
+            <div class="section-header">
+
+                <span class="section-number">
+                    01 // PROFILE
+                </span>
+
+                <div class="section-title">
+
+                    <h2>
+                        Where software meets systems.
+                    </h2>
+
+                    <p>
+                        My academic projects have strengthened the development
+                        skills behind the integration and problem-solving work
+                        I perform professionally.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="about-layout">
+
+                <div class="content-panel">
+
+                    <p>
+                        I am a computer science student and simulation
+                        integration engineer with experience supporting
+                        complex technical environments. My work requires more
+                        than operating individual applications. I must understand
+                        how systems exchange information, how users define
+                        success, and how technical problems affect the larger
+                        objective.
+                    </p>
+
+                    <p>
+                        The computer science program has given me a stronger
+                        foundation for approaching those challenges through
+                        software. I have worked with C++, Java, Python, Android
+                        development, MongoDB, relational databases, secure
+                        coding practices, software testing, user-interface
+                        design, and client/server architecture.
+                    </p>
+
+                    <p>
+                        The projects in this portfolio were not selected simply
+                        because they were completed assignments. Each one
+                        represents a different part of the way I solve problems:
+                        designing for the user, selecting the right structure
+                        for the data, and creating reliable access to stored
+                        information.
+                    </p>
+
+                </div>
+
+                <div class="approach-list">
+
+                    <div class="approach-item">
+                        <strong>01 — Understand</strong>
+                        <span>
+                            Identify the actual requirement before choosing
+                            a technical solution.
+                        </span>
+                    </div>
+
+                    <div class="approach-item">
+                        <strong>02 — Evaluate</strong>
+                        <span>
+                            Examine constraints, risks, usability, and
+                            long-term maintainability.
+                        </span>
+                    </div>
+
+                    <div class="approach-item">
+                        <strong>03 — Integrate</strong>
+                        <span>
+                            Build solutions that work with the surrounding
+                            systems rather than in isolation.
+                        </span>
+                    </div>
+
+                    <div class="approach-item">
+                        <strong>04 — Validate</strong>
+                        <span>
+                            Test assumptions and verify that the result meets
+                            the original operational need.
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section id="review">
+
+            <div class="section-header">
+
+                <span class="section-number">
+                    02 // REVIEW
+                </span>
+
+                <div class="section-title">
+
+                    <h2>
+                        Reviewing before rebuilding.
+                    </h2>
+
+                    <p>
+                        The code review establishes what each artifact already
+                        does well, where it falls short, and why the planned
+                        enhancements are technically meaningful.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="review-layout">
+
+                <div class="review-summary">
+
+                    <h3>
+                        Code Review Objective
+                    </h3>
+
+                    <p>
+                        My review examines more than whether the applications
+                        produce the expected output. It considers whether the
+                        code is organized clearly, handles errors safely,
+                        protects data appropriately, and can be maintained by
+                        someone other than the original developer.
+                    </p>
+
+                    <p>
+                        Each artifact is reviewed in its original state before
+                        enhancement. This provides a clear point of comparison
+                        and documents the reasoning behind the changes made
+                        during the capstone.
+                    </p>
+
+                    <span class="disabled-link">
+                        Video link will be added after recording it
+                    </span>
+
+                </div>
+
+                <div class="review-matrix">
+
+                    <div class="review-cell">
+                        <span>CHECK_01</span>
+                        <strong>Structure</strong>
+                        <p>
+                            Organization, repeated code, complexity, naming,
+                            and maintainability.
+                        </p>
+                    </div>
+
+                    <div class="review-cell">
+                        <span>CHECK_02</span>
+                        <strong>Functionality</strong>
+                        <p>
+                            Whether each feature behaves correctly under
+                            expected and unexpected conditions.
+                        </p>
+                    </div>
+
+                    <div class="review-cell">
+                        <span>CHECK_03</span>
+                        <strong>Security</strong>
+                        <p>
+                            Input validation, data handling, error management,
+                            and defensive programming.
+                        </p>
+                    </div>
+
+                    <div class="review-cell">
+                        <span>CHECK_04</span>
+                        <strong>Efficiency</strong>
+                        <p>
+                            Algorithm selection, unnecessary processing,
+                            storage use, and scalability.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section id="artifacts">
+
+            <div class="section-header">
+
+                <span class="section-number">
+                    03 // ARTIFACTS
+                </span>
+
+                <div class="section-title">
+
+                    <h2>
+                        Three projects. Three technical perspectives.
+                    </h2>
+
+                    <p>
+                        Together, these artifacts show how I approach user-facing
+                        design, algorithmic organization, and data-driven
+                        applications.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="artifact-list">
+
+                <article class="artifact">
+
+                    <div class="artifact-code">
+                        <strong>SE-01</strong>
+                        <span>MOBILE SYSTEM</span>
+                    </div>
+
+                    <div class="artifact-content">
+
+                        <h3>
+                            TrimDown Weight Tracker
+                        </h3>
+
+                        <p class="artifact-category">
+                            Software Engineering and Design
+                        </p>
+
+                        <p>
+                            TrimDown is an Android application developed to help
+                            users record daily weight, review progress, establish
+                            a target, and manage notification preferences. The
+                            original project combines account management,
+                            interface design, application logic, and local SQLite
+                            storage.
+                        </p>
+
+                        <p>
+                            I selected TrimDown because it demonstrates how many
+                            small design decisions combine to shape the user’s
+                            experience. The enhancement focuses on stronger input
+                            validation, clearer feedback, improved organization,
+                            and a more consistent interface.
+                        </p>
+
+                        <div class="skills-strip">
+                            <span class="skill">Android</span>
+                            <span class="skill">SQLite</span>
+                            <span class="skill">UI Design</span>
+                            <span class="skill">Validation</span>
+                        </div>
+
+                    </div>
+
+                    <div class="artifact-controls">
+
+                        <span class="status-tag">
+                            ENHANCEMENT SELECTED
+                        </span>
+
+                        <span class="disabled-link">
+                            Original Files Coming Soon
+                        </span>
+
+                        <span class="disabled-link">
+                            Enhanced Files Coming Soon
+                        </span>
+
+                        <span class="disabled-link">
+                            Narrative Coming Soon
+                        </span>
+
+                    </div>
+
+                </article>
+
+                <article class="artifact">
+
+                    <div class="artifact-code">
+                        <strong>AD-02</strong>
+                        <span>DATA LOGIC</span>
+                    </div>
+
+                    <div class="artifact-content">
+
+                        <h3>
+                            CS 300 Course Planner
+                        </h3>
+
+                        <p class="artifact-category">
+                            Algorithms and Data Structures
+                        </p>
+
+                        <p>
+                            The Course Planner is a C++ program that imports
+                            course data, stores course records, searches for
+                            individual courses, sorts the catalog, and displays
+                            prerequisite relationships.
+                        </p>
+
+                        <p>
+                            This artifact highlights the importance of choosing
+                            a data structure based on the operations the program
+                            performs most often. The enhancement will improve
+                            validation, clarify the control flow, strengthen
+                            error handling, and make course retrieval more
+                            dependable.
+                        </p>
+
+                        <div class="skills-strip">
+                            <span class="skill">C++</span>
+                            <span class="skill">Searching</span>
+                            <span class="skill">Sorting</span>
+                            <span class="skill">Data Structures</span>
+                        </div>
+
+                    </div>
+
+                    <div class="artifact-controls">
+
+                        <span class="status-tag">
+                            ENHANCEMENT SELECTED
+                        </span>
+
+                        <span class="disabled-link">
+                            Original Files Coming Soon
+                        </span>
+
+                        <span class="disabled-link">
+                            Enhanced Files Coming Soon
+                        </span>
+
+                        <span class="disabled-link">
+                            Narrative Coming Soon
+                        </span>
+
+                    </div>
+
+                </article>
+
+                <article class="artifact">
+
+                    <div class="artifact-code">
+                        <strong>DB-03</strong>
+                        <span>DATA ACCESS</span>
+                    </div>
+
+                    <div class="artifact-content">
+
+                        <h3>
+                            Animal Shelter Dashboard
+                        </h3>
+
+                        <p class="artifact-category">
+                            Databases
+                        </p>
+
+                        <p>
+                            The Animal Shelter Dashboard combines a Python CRUD
+                            module, MongoDB, and Jupyter Dash to search, filter,
+                            update, and visualize animal shelter records through
+                            an interactive interface.
+                        </p>
+
+                        <p>
+                            I selected this project because it shows the complete
+                            path between stored data and a user’s decision. The
+                            enhancement will strengthen validation, improve
+                            database queries, handle failures more clearly, and
+                            refine the way users interact with the results.
+                        </p>
+
+                        <div class="skills-strip">
+                            <span class="skill">Python</span>
+                            <span class="skill">MongoDB</span>
+                            <span class="skill">CRUD</span>
+                            <span class="skill">Dash</span>
+                        </div>
+
+                    </div>
+
+                    <div class="artifact-controls">
+
+                        <span class="status-tag">
+                            ENHANCEMENT SELECTED
+                        </span>
+
+                        <span class="disabled-link">
+                            Original Files Coming Soon
+                        </span>
+
+                        <span class="disabled-link">
+                            Enhanced Files Coming Soon
+                        </span>
+
+                        <span class="disabled-link">
+                            Narrative Coming Soon
+                        </span>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+        <section id="assessment">
+
+            <div class="section-header">
+
+                <span class="section-number">
+                    04 // ASSESSMENT
+                </span>
+
+                <div class="section-title">
+
+                    <h2>
+                        The larger picture.
+                    </h2>
+
+                    <p>
+                        The final self-assessment will connect the individual
+                        projects to my development as a computer science
+                        professional.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="assessment-panel">
+
+                <h3>
+                    Professional Self-Assessment
+                </h3>
+
+                <p>
+                    My final assessment will examine how my academic work and
+                    professional experience have shaped my ability to collaborate,
+                    communicate technical ideas, select appropriate algorithms,
+                    develop software, work with databases, and apply a security
+                    mindset. It will also explain how the three artifacts operate
+                    as a single portfolio rather than as unrelated course projects.
+                </p>
+
+                <span class="status-tag">
+                    FINAL CAPSTONE SECTION IN DEVELOPMENT
+                </span>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+
+        <div class="footer-content">
+
+            <span>
+                DANNY MORSE // CS 499
+            </span>
+
+            <span>
+                COMPUTER SCIENCE ePORTFOLIO // 2026
+            </span>
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>
